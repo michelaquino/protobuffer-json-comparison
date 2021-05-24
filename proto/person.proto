@@ -1,0 +1,21 @@
+syntax = "proto3";
+package domain;
+
+import "google/protobuf/timestamp.proto";
+import "proto/phone.proto";
+option go_package = "./domain";
+
+message Person {
+	string name = 1;
+	string id = 2;
+	string email = 3;
+
+	repeated domain.PhoneNumber phones = 4;
+	google.protobuf.Timestamp last_updated = 5;
+}
+
+// Our address book file is just one of these.
+message AddressBook {
+	repeated Person people = 1;
+}
+

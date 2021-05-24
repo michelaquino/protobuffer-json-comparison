@@ -1,0 +1,14 @@
+version: '2'
+services:
+    api:
+        build: .
+        depends_on:
+            - redis
+        environment:
+            REDIS_HOST: redis:6379
+        ports:
+            - 8888:8888
+    redis:
+        image: redis:6
+        ports:
+            - 6379:6379
