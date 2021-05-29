@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -72,34 +71,4 @@ func PostPROTOAsJSON(echoContext echo.Context) error {
 	}
 
 	return echoContext.NoContent(http.StatusOK)
-}
-
-func PrintComparison(echoContext echo.Context) error {
-	printComparison()
-	return echoContext.NoContent(http.StatusOK)
-}
-
-func printComparison() {
-	msgJson := marshalunmarshal.MarshalJSON()
-	fmt.Println("JSON: ", string(msgJson))
-	address1 := marshalunmarshal.UnmarshalJSON(msgJson)
-	fmt.Println()
-	fmt.Println("ID 1: ", address1.People[0].GetId())
-	fmt.Println("ID 2: ", address1.People[1].GetId())
-
-	fmt.Println("==============================")
-	msgProto := marshalunmarshal.MarshalPROTO()
-	fmt.Println("PROTO: ", string(msgProto))
-	address2 := marshalunmarshal.UnmarshalPROTO(msgProto)
-	fmt.Println()
-	fmt.Println("ID 1: ", address2.People[0].GetId())
-	fmt.Println("ID 2: ", address2.People[1].GetId())
-
-	fmt.Println("==============================")
-	msgProtoAsJson := marshalunmarshal.MarshalPROTOAsJSON()
-	fmt.Println("PROTO as JSON: ", string(msgProtoAsJson))
-	address3 := marshalunmarshal.UnmarshalPROTOAsJSON(msgProtoAsJson)
-	fmt.Println()
-	fmt.Println("ID 1: ", address3.People[0].GetId())
-	fmt.Println("ID 2: ", address3.People[1].GetId())
 }

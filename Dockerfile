@@ -25,7 +25,7 @@ FROM build_base AS builder
 COPY . /app
 
 # Build the image for Linux instances
-RUN make build
+RUN make build-linux
 
 ############################# Runner #############################
 FROM alpine:latest

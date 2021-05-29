@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/michelaquino/protobuffer-json-comparison/handlers"
 )
 
@@ -12,15 +13,17 @@ const (
 )
 
 func main() {
-	echoInstance := echo.New()
-	echoInstance.GET("/json", handlers.GetJSON)
-	echoInstance.POST("/json", handlers.PostJSON)
-	echoInstance.GET("/proto", handlers.GetPROTO)
-	echoInstance.POST("/proto", handlers.PostPROTO)
-	echoInstance.GET("/protojson", handlers.GetPROTOAsJSON)
-	echoInstance.POST("/protojson", handlers.PostPROTOAsJSON)
+	e := echo.New()
+	e.Use(middleware.Logger())
 
-	echoInstance.GET("/comparison", handlers.PrintComparison)
+	e.GET("/json", handlers.GetJSON)
+	e.POST("/json", handlers.PostJSON)
 
-	echoInstance.Logger.Fatal(echoInstance.Start(fmt.Sprintf(":%d", port)))
+	e.GET("/proto", handlers.GetPROTO)
+	e.POST("/proto", handlers.PostPROTO)
+
+	e.GET("/protojson", handlers.GetPROTOAsJSON)
+	e.POST("/protojson", handlers.PostPROTOAsJSON)
+
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", port)))
 }
